@@ -80,7 +80,13 @@ SEBT.views.dashboard = {
         <div class="form-group"><label class="form-label">Description</label><input type="text" id="txDesc" class="form-input" placeholder="e.g. Coffee"></div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Category</label><select id="txCat" class="form-select">${SEBT.data.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}</select></div>
-          <div class="form-group"><label class="form-label">Amount (₹)</label><input type="number" id="txAmount" class="form-input" placeholder="0"></div>
+          <div class="form-group">
+            <label class="form-label">Amount</label>
+            <div style="display:flex; gap:8px;">
+              <select id="txCurrency" class="form-select" style="width:80px; padding:8px"><option value="INR">₹ INR</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option><option value="CAD">$ CAD</option><option value="AUD">$ AUD</option></select>
+              <input type="number" id="txAmount" class="form-input" placeholder="0" style="flex:1">
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer"><button class="btn btn-outline" onclick="SEBT.app.closeModal()">Cancel</button><button class="btn btn-primary" onclick="SEBT.views.dashboard.saveTx()">Save Transaction</button></div>
@@ -93,8 +99,13 @@ SEBT.views.dashboard = {
     const date = document.getElementById('txDate').value;
     const desc = document.getElementById('txDesc').value;
     const cat = document.getElementById('txCat').value;
-    const amount = parseFloat(document.getElementById('txAmount').value);
-    if(!desc || !amount) { alert('Please enter description and amount'); return; }
+    const currency = document.getElementById('txCurrency').value || 'INR';
+    let rawAmount = parseFloat(document.getElementById('txAmount').value);
+    if(!desc || !rawAmount) { alert('Please enter description and amount'); return; }
+    let amount = rawAmount;
+    if(currency !== 'INR' && SEBT.data.exchangeRates[currency]) {
+      amount = rawAmount * SEBT.data.exchangeRates[currency];
+    }
     
     // Alert System
     if(type === 'expense' && SEBT.data.user.alertsEnabled !== false) {

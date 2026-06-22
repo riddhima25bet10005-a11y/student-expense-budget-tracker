@@ -18,6 +18,7 @@ SEBT.data = {
     allocations: { food: 0, transport: 0, shopping: 0, entertainment: 0, others: 0 }
   },
   goals: [],
+  debts: [],
   dailyExpenses: Array(31).fill(0),
   
   formatCurrency: (amount) => '₹' + Math.abs(amount).toLocaleString('en-IN'),
@@ -74,6 +75,53 @@ SEBT.data = {
     Object.assign(SEBT.data.user, updates);
     SEBT.data.saveData();
   },
+  exchangeRates: {
+    'USD': 83.5,
+    'EUR': 89.2,
+    'GBP': 105.1,
+    'CAD': 61.2,
+    'AUD': 55.4,
+    'INR': 1.0
+  },
+  calculateStreak: () => {
+    let streak = 0;
+    const dailyLimit = SEBT.data.budgets.totalBudget > 0 ? SEBT.data.budgets.totalBudget / 30 : 500;
+    const expByDate = {};
+    SEBT.data.transactions.filter(t => t.type === 'expense').forEach(t => {
+      const d = t.date.split('T')[0];
+      expByDate[d] = (expByDate[d] || 0) + t.amount;
+    });
+
+    let checkDate = new Date();
+    while (true) {
+      const dStr = checkDate.toISOString().split('T')[0];
+      const spent = expByDate[dStr] || 0;
+      if (spent <= dailyLimit) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  },
+  addDebt: (debt) => {
+    debt.id = SEBT.data.debts.length ? Math.max(...SEBT.data.debts.map(d => d.id)) + 1 : 1;
+    debt.settled = false;
+    SEBT.data.debts.unshift(debt);
+    SEBT.data.saveData();
+  },
+  settleDebt: (id) => {
+    const d = SEBT.data.debts.find(x => x.id === id);
+    if(d) {
+      d.settled = true;
+      SEBT.data.saveData();
+    }
+  },
+  deleteDebt: (id) => {
+    SEBT.data.debts = SEBT.data.debts.filter(x => x.id !== id);
+    SEBT.data.saveData();
+  },
   addCategory: (cat) => {
     SEBT.data.categories.push(cat);
     SEBT.data.saveData();
@@ -87,6 +135,7 @@ SEBT.data = {
       transactions: SEBT.data.transactions,
       budgets: SEBT.data.budgets,
       goals: SEBT.data.goals,
+      debts: SEBT.data.debts,
       categories: SEBT.data.categories,
       user: SEBT.data.user,
       isAuthenticated: SEBT.data.isAuthenticated
@@ -100,6 +149,7 @@ SEBT.data = {
         SEBT.data.transactions = parsed.transactions || [];
         SEBT.data.budgets = parsed.budgets || SEBT.data.budgets;
         SEBT.data.goals = parsed.goals || [];
+        SEBT.data.debts = parsed.debts || [];
         if (parsed.categories) SEBT.data.categories = parsed.categories;
         if (parsed.user) {
           if (!localStorage.getItem('theme_default_updated')) {
