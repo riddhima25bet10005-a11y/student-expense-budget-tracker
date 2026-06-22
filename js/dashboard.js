@@ -22,6 +22,13 @@ SEBT.views.dashboard = {
       </div>
       
       <div class="dashboard-main" style="margin-top: 0">
+                ${SEBT.data.calculateStreak() > 0 ? `<div class="card animate-fade" style="margin-bottom: 24px; display: flex; align-items: center; gap: 16px; padding: 16px 24px; background: linear-gradient(135deg, rgba(255,165,0,0.1), rgba(255,69,0,0.05)); border: 1px solid rgba(255,165,0,0.2);">
+          <div style="font-size: 2rem;">🔥</div>
+          <div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary);">You're on a ${SEBT.data.calculateStreak()} Day Saving Streak!</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Keep your daily spending under ${formatCurrency(budgets.totalBudget > 0 ? budgets.totalBudget/30 : 500)} to keep the streak alive!</div>
+          </div>
+        </div>` : ''}
         <div class="summary-cards animate-fade" style="animation-delay: 0.1s">
           <div class="card summary-card"><div class="card-icon-wrap icon-purple"><i class="bi bi-wallet2"></i></div><div class="card-content"><div class="card-label">Total Balance</div><div class="card-value">${formatCurrency(SEBT.data.getBalance())}</div><div class="card-trend text-muted">No data for last month</div></div></div>
           <div class="card summary-card"><div class="card-icon-wrap icon-green"><i class="bi bi-arrow-down-short"></i></div><div class="card-content"><div class="card-label">Total Income</div><div class="card-value">${formatCurrency(SEBT.data.getTotalIncome())}</div><div class="card-trend text-muted">No data for last month</div></div></div>
