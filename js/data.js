@@ -113,12 +113,23 @@ SEBT.data = {
   },
   settleDebt: (id) => {
     const d = SEBT.data.debts.find(x => x.id === id);
-    if(d) {
+    if(d && !d.settled) {
       d.settled = true;
+      SEBT.data.addTransaction({
+        date: new Date().toISOString(),
+        description: `Settled Debt: ${d.person} - ${d.reason}`,
+        category: 'others',
+        type: d.type === 'owed_to_me' ? 'income' : 'expense',
+        amount: d.amount
+      });
       SEBT.data.saveData();
     }
   },
   deleteDebt: (id) => {
+    const d = SEBT.data.debts.find(x => x.id === id);
+    if(d) {
+      SEBT.data.transactions = SEBT.data.transactions.filter(t => t.description !== `Settled Debt: ${d.person} - ${d.reason}`);
+    }
     SEBT.data.debts = SEBT.data.debts.filter(x => x.id !== id);
     SEBT.data.saveData();
   },
