@@ -1,0 +1,17 @@
+﻿
+.chart-container { position: relative; width: 100%; }
+.chart-container canvas { max-width: 100%; }
+.donut-chart-wrapper { display: flex; align-items: center; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.donut-canvas-wrap { width: 150px; height: 150px; flex-shrink: 0; position: relative; }
+.donut-center-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+.donut-center-label { font-size: 0.65rem; color: var(--text-muted); }
+.donut-center-value { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+.chart-legend { display: flex; flex-direction: column; gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-label { color: var(--text-secondary); min-width: 80px; }
+.legend-value { color: var(--text-primary); font-weight: 500; }
+.bar-chart-container { height: 240px; }
+.line-chart-container { height: 180px; }
+.analytics-charts-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; margin-top: 12px; }
+
