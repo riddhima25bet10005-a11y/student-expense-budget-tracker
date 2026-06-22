@@ -77,7 +77,12 @@ SEBT.views.settings = {
         </div>
         <div class="form-group">
           <label class="form-label">Currency Symbol / Display</label>
-          <input type="text" id="editUserCurrency" class="form-input" value="${u.currency}">
+          <select id="editUserCurrency" class="form-select">
+            <option value="₹" ${u.currency === '₹' ? 'selected' : ''}>₹ INR (Indian Rupee)</option>
+            <option value="$" ${u.currency === '$' ? 'selected' : ''}>$ USD/CAD/AUD</option>
+            <option value="€" ${u.currency === '€' ? 'selected' : ''}>€ EUR (Euro)</option>
+            <option value="£" ${u.currency === '£' ? 'selected' : ''}>£ GBP (British Pound)</option>
+          </select>
         </div>
       </div>
       <div class="modal-footer">
