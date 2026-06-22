@@ -26,7 +26,7 @@ SEBT.views.dashboard = {
           <div style="font-size: 2rem;">🔥</div>
           <div>
             <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary);">You're on a ${SEBT.data.calculateStreak()} Day Saving Streak!</div>
-            <div style="font-size: 0.9rem; color: var(--text-muted);">Keep your daily spending under ${formatCurrency(budgets.totalBudget > 0 ? budgets.totalBudget/30 : 500)} to keep the streak alive!</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Log at least one transaction or debt every day to keep the streak alive!</div>
           </div>
         </div>` : ''}
         <div class="summary-cards animate-fade" style="animation-delay: 0.1s">

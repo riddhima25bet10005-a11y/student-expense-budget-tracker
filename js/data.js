@@ -85,18 +85,29 @@ SEBT.data = {
   },
   calculateStreak: () => {
     let streak = 0;
-    const dailyLimit = SEBT.data.budgets.totalBudget > 0 ? SEBT.data.budgets.totalBudget / 30 : 500;
-    const expByDate = {};
-    SEBT.data.transactions.filter(t => t.type === 'expense').forEach(t => {
+    const activeDates = {};
+    SEBT.data.transactions.forEach(t => {
       const d = t.date.split('T')[0];
-      expByDate[d] = (expByDate[d] || 0) + t.amount;
+      activeDates[d] = true;
+    });
+    SEBT.data.debts.forEach(d => {
+      if(d.date) activeDates[d.date.split('T')[0]] = true;
     });
 
     let checkDate = new Date();
+    const todayStr = checkDate.toISOString().split('T')[0];
+    
+    if (!activeDates[todayStr]) {
+      let yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      if(activeDates[yesterday.toISOString().split('T')[0]]) {
+        checkDate.setDate(checkDate.getDate() - 1);
+      }
+    }
+
     while (true) {
       const dStr = checkDate.toISOString().split('T')[0];
-      const spent = expByDate[dStr] || 0;
-      if (spent <= dailyLimit) {
+      if (activeDates[dStr]) {
         streak++;
         checkDate.setDate(checkDate.getDate() - 1);
       } else {
