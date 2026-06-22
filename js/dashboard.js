@@ -29,6 +29,27 @@ SEBT.views.dashboard = {
             <div style="font-size: 0.9rem; color: var(--text-muted);">Log at least one transaction or debt every day to keep the streak alive!</div>
           </div>
         </div>` : ''}
+        
+        ${(() => {
+          const finScore = SEBT.data.calculateFinScore();
+          let scoreLabel = 'Needs Work';
+          let scoreColor = 'var(--color-danger)';
+          if(finScore >= 750) { scoreLabel = 'Excellent'; scoreColor = 'var(--color-success)'; }
+          else if(finScore >= 600) { scoreLabel = 'Good'; scoreColor = 'var(--color-primary)'; }
+          else if(finScore >= 500) { scoreLabel = 'Fair'; scoreColor = 'var(--color-warning)'; }
+          return `
+          <div class="card animate-fade" style="margin-bottom: 24px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; border-left: 4px solid ${scoreColor}; background: linear-gradient(to right, rgba(255,255,255,0.02), transparent);">
+            <div>
+              <div style="font-weight: 600; font-size: 1.2rem; color: var(--text-primary);">FinScore</div>
+              <div style="font-size: 0.9rem; color: var(--text-muted);">Based on tracking consistency and budget health</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 2rem; font-weight: 700; color: ${scoreColor}; line-height: 1;">${finScore}</div>
+              <div style="font-size: 0.9rem; font-weight: 600; color: ${scoreColor}; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">${scoreLabel}</div>
+            </div>
+          </div>`;
+        })()}
+
         <div class="summary-cards animate-fade" style="animation-delay: 0.1s">
           <div class="card summary-card"><div class="card-icon-wrap icon-purple"><i class="bi bi-wallet2"></i></div><div class="card-content"><div class="card-label">Total Balance</div><div class="card-value">${formatCurrency(SEBT.data.getBalance())}</div><div class="card-trend text-muted">No data for last month</div></div></div>
           <div class="card summary-card"><div class="card-icon-wrap icon-green"><i class="bi bi-arrow-down-short"></i></div><div class="card-content"><div class="card-label">Total Income</div><div class="card-value">${formatCurrency(SEBT.data.getTotalIncome())}</div><div class="card-trend text-muted">No data for last month</div></div></div>

@@ -83,6 +83,40 @@ SEBT.data = {
     'AUD': 55.4,
     'INR': 1.0
   },
+  calculateFinScore: () => {
+    let score = 500;
+    
+    // Tracking Streak (+10 per day, max 150)
+    const streak = SEBT.data.calculateStreak();
+    score += Math.min(streak * 10, 150);
+    
+    // Budget Health
+    const totalExp = SEBT.data.getTotalExpense();
+    const budget = SEBT.data.budgets.totalBudget || 0;
+    if (budget > 0) {
+      if (totalExp <= budget) score += 100;
+      else score -= 100;
+    }
+    
+    // Income vs Expense
+    const totalInc = SEBT.data.getTotalIncome();
+    if (totalInc > totalExp && totalExp > 0) score += 50;
+    
+    // Debt Management
+    let owedToOthers = 0;
+    SEBT.data.debts.filter(d => !d.settled && d.type === 'i_owe').forEach(d => {
+      owedToOthers++;
+    });
+    
+    if (owedToOthers > 0) {
+      score -= (owedToOthers * 20);
+    } else {
+      score += 50;
+    }
+    
+    // Cap score between 300 and 850
+    return Math.max(300, Math.min(score, 850));
+  },
   calculateStreak: () => {
     let streak = 0;
     const activeDates = {};
