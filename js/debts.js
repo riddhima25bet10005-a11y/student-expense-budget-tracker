@@ -43,7 +43,7 @@ SEBT.views.debts = {
           <div class="card-title">Active Debts</div>
         </div>
         <div class="table-responsive">
-          <table class="table">
+          <table class="data-table">
             <thead>
               <tr>
                 <th>Date</th>
@@ -79,7 +79,7 @@ SEBT.views.debts = {
           <div class="card-title">Settled History</div>
         </div>
         <div class="table-responsive">
-          <table class="table" style="opacity: 0.7">
+          <table class="data-table" style="opacity: 0.7">
             <thead>
               <tr>
                 <th>Date</th>
@@ -188,3 +188,4 @@ SEBT.views.debts = {
 
   destroy: () => {}
 };
+
