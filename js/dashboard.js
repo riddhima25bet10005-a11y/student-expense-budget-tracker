@@ -25,7 +25,7 @@ SEBT.views.dashboard = {
                 ${SEBT.data.calculateStreak() > 0 ? `<div class="card animate-fade" style="margin-bottom: 24px; display: flex; align-items: center; gap: 16px; padding: 16px 24px; background: linear-gradient(135deg, rgba(255,165,0,0.1), rgba(255,69,0,0.05)); border: 1px solid rgba(255,165,0,0.2);">
           <div style="font-size: 2rem;">🔥</div>
           <div>
-            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary);">You're on a ${SEBT.data.calculateStreak()} Day Saving Streak!</div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary);">You're on a ${SEBT.data.calculateStreak()} Day Tracking Streak!</div>
             <div style="font-size: 0.9rem; color: var(--text-muted);">Log at least one transaction or debt every day to keep the streak alive!</div>
           </div>
         </div>` : ''}
