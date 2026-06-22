@@ -15,7 +15,7 @@ SEBT.views.debts = {
     const html = `
       <div class="page-header animate-fade" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px">
         <div>
-          <h1 class="page-title">Roommate Split & Debts</h1>
+          <h1 class="page-title">Split & Debts</h1>
           <div class="page-subtitle">Track who owes you and who you owe</div>
         </div>
         <button class="btn btn-primary" onclick="SEBT.views.debts.openAddDebtModal()"><i class="bi bi-plus-lg"></i> Add Debt</button>
@@ -188,4 +188,5 @@ SEBT.views.debts = {
 
   destroy: () => {}
 };
+
 
