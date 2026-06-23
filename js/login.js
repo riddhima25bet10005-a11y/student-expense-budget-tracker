@@ -7,7 +7,7 @@ SEBT.views.login = {
       <div class="login-wrapper animate-fade" style="display:flex; justify-content:center; align-items:center; min-height:80vh; width:100%">
         <div class="card" style="width: 100%; max-width: 420px; padding: 40px;">
           <div style="text-align:center; margin-bottom: 32px">
-            <div class="logo-icon" style="margin: 0 auto 16px auto; width: 64px; height: 64px; font-size: 1.2rem">SEBT</div>
+            <img src="assets/logo.png" alt="SEBT Logo" style="margin: 0 auto 24px auto; width: 96px; height: 96px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); display: block; object-fit: contain;">
             <h1 style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px">Welcome Back</h1>
             <p style="color: var(--text-secondary); font-size: 0.9rem">Sign in to manage your budget and expenses.</p>
           </div>
@@ -50,3 +50,4 @@ SEBT.views.login = {
   
   destroy: () => {}
 };
+
