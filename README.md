@@ -1,5 +1,5 @@
 ﻿<div align="center">
-  <img src="https://img.icons8.com/color/96/000000/wallet--v1.png" alt="Wallet Icon"/>
+  <img src="assets/logo.png" alt="SEBT Logo" width="128" height="128" style="border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;"/>
   <h1>Student Expense & Budget Tracker</h1>
   <p>A modern, responsive, and highly gamified financial dashboard built specifically for students. Track expenses, split bills with roommates, analyze spending with AI, and build healthy financial habits.</p>
   
@@ -60,3 +60,4 @@ Because this app uses purely Vanilla JavaScript and Local Storage, running it lo
   * `data.js`: Centralized state management and LocalStorage handlers.
   * `dashboard.js`, `transactions.js`, `debts.js`, etc.: View-specific logic.
 * `index.html`: The main entry point of the application.
+
